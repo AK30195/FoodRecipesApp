@@ -1,13 +1,54 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>recipe-details</ion-title>
+    @if(selectedRecipe.title) {
+      <ion-title>{{selectedRecipe.title}}</ion-title>
+    } @else {
+      <ion-title>Recipe not found</ion-title>
+    }
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">recipe-details</ion-title>
+      @if(selectedRecipe.title) {
+      <ion-title size="large">{{selectedRecipe.title}}</ion-title>
+    } @else {
+      <ion-title>Recipe not found</ion-title>
+    }
     </ion-toolbar>
   </ion-header>
+
+  @if(selectedRecipe.extendedIngredients) {
+    <ion-list>
+    <ion-list-header>Ingredients</ion-list-header>
+    @for(ingredient of selectedRecipe.extendedIngredients; track ingredient.id) {
+      <ion-item>
+      <ion-card>
+        <div>
+          <img src={{ingredientImagesBaseUrl}}{{ingredient.image}} alt="Ingredient Image">
+        </div>
+        <ion-card-header>
+          <ion-card-title>{{ingredient.original}}</ion-card-title>
+          <ion-card-subtitle>{{ingredient.amount}} {{ingredient.unit}}</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+      </ion-item>
+    }
+    </ion-list>
+  }
+
+  @if(selectedRecipe.analyzedInstructions) {
+    <ion-list>
+      <ion-list-header>Instructions</ion-list-header>
+      @for(instruction of selectedRecipe.analyzedInstructions; track instruction.name) {
+        @for(step of instruction.steps; track step.number) {
+          <ion-item>
+            <ion-label><strong>{{step.number}}.</strong> {{step.step}}</ion-label>
+          </ion-item>
+        }
+      }
+    </ion-list>
+  }
+  <ion-button expand="full">Add to favourites<ion-icon name="heart-outline"></ion-icon></ion-button>
 </ion-content>

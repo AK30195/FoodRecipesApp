@@ -21,6 +21,10 @@ export class UserDataService {
   }
 
   async get(key : string) {
-    await this.userStorage?.get(key);
+    return await this.userStorage?.get(key);
+  }
+
+  async getSelectedRecipeID() {
+    return await this.userStorage?.get("selectedRecipeID");
   }
 }

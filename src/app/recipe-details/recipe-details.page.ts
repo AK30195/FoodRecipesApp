@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonButton, 
+  IonCardSubtitle, IonList, IonListHeader, IonItem, IonLabel, IonIcon } from '@ionic/angular/standalone';
 import { HttpService } from '../services/http-service/http-service';
 import { UserDataService } from '../services/user-data-service/user-data-service';
 
@@ -10,21 +11,37 @@ import { UserDataService } from '../services/user-data-service/user-data-service
   templateUrl: './recipe-details.page.html',
   styleUrls: ['./recipe-details.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonIcon, IonLabel, IonList, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent,
+    IonCardTitle, IonCardHeader, CommonModule, FormsModule, IonCardSubtitle, IonListHeader, IonItem, IonIcon]
 })
-export class RecipeDetailsPage implements OnInit {
-
+export class RecipeDetailsPage {
+  // Local variable to hold selected recipe ID
   selectedRecipeID!: string;
-  selectedRecipe = {};
+  // Object to hold selected recipe details
+  selectedRecipe: any = {};
+
+  // Used for API string literal in loadRecipeDetails()
   baseAPIUrl = "https://api.spoonacular.com/recipes/";
   apiKey = "70759a4f7911402abcc53d3c51d3b759"
 
+  ingredientImagesBaseUrl = "https://spoonacular.com/cdn/ingredients_100x100/";
+
   constructor(private httpService: HttpService, private userData: UserDataService) { }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
+    // Get selected recipe ID from user data service and assign to local variable
+    this.selectedRecipeID = await this.userData.getSelectedRecipeID();
+    
+    // Log to console if no selected recipe ID found
+    if(!this.selectedRecipeID) {
+      console.error("No selected recipe ID found in user data.");
+      return;
+    }
+
+    await this.loadRecipeDetails();
   }
 
-
+  // Load details for selected recipe from API
   async loadRecipeDetails() {
     const res = await this.httpService.get({
       url: `${this.baseAPIUrl}${this.selectedRecipeID}/information?apiKey=${this.apiKey}`

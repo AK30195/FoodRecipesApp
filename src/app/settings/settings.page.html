@@ -1,13 +1,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>settings</ion-title>
+    <ion-title><ion-icon name="settings-outline"></ion-icon> Settings</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">settings</ion-title>
+      <ion-title size="large"><ion-icon name="settings-outline"></ion-icon> Settings </ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-list>
+    <ion-item>
+      <ion-select label="Unit System" [(ngModel)]="unitSetting" (ionChange)="handleUnitSettingChange()">
+      <ion-select-option value="metric">Metric</ion-select-option>
+      <ion-select-option value="US">US</ion-select-option>
+    </ion-select>
+    </ion-item>
+  </ion-list>
+  
 </ion-content>
