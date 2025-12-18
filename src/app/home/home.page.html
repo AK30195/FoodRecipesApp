@@ -25,17 +25,22 @@
   </ion-list>
   <ion-button expand="full" (click)="searchByIngredients()">Search</ion-button>
 
-  <ion-button [routerLink]="['/recipe-details']">Details</ion-button>
+  
    
   @if(listedRecipes) {
-    @for(recipe of listedRecipes; track recipe?.id) {
+    @for(recipe of listedRecipes; track recipe.id) {
     <ion-card>
       <ion-card-header>
         <ion-card-title>{{recipe.title}}</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
-        Here's a small text description for the card content. Nothing more, nothing less.
+        <div>
+          <img src={{recipe.image}} alt="Recipe Image">
+        </div>
+        <div>
+          <ion-button (click)="handleRecipeDetailsClick(recipe.id)" [routerLink]="['/recipe-details']">Details</ion-button>
+        </div>
       </ion-card-content>
     </ion-card>
     }

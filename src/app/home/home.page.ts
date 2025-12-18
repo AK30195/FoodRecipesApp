@@ -36,10 +36,15 @@ export class HomePage {
   parseSearchInput(ingredients: string) : string {
     let ingredientArray = ingredients
       .toLowerCase() 
-      .split(/[,\s]+/) // Split by comma or space
+      .split(/[,\s]+/) // Split by comma or space to separate ingredients
       .map(word => word.replace(/[^a-z]/g, '')) // remove non-letters
-      .filter(Boolean);
+      .filter(Boolean); // Check word isn't blank after processing
 
+    // Join separated ingredients as search params for url
     return `&query=${ingredientArray.join(' ')}`;
+  }
+
+  async handleRecipeDetailsClick(recipeID : string) {
+    await this.userData.set("selectedRecipeID", recipeID)
   }
 }
