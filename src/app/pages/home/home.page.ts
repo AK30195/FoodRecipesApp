@@ -5,15 +5,14 @@ import { RouterLink } from '@angular/router';
 import { HttpService } from '../../services/http-service/http-service';
 import { UserDataService } from '../../services/user-data-service/user-data-service';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonList, IonItem, IonInput, IonIcon,
-  IonCard, IonCardHeader, IonCardContent, IonCardTitle
- } from '@ionic/angular/standalone';
+  IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonMenu, IonMenuButton, IonButtons, IonLabel } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [CommonModule, FormsModule, RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
-     IonList, IonItem, IonInput, IonIcon, IonCard, IonCardHeader, IonCardContent, IonCardTitle
+  imports: [IonLabel, IonButtons, CommonModule, FormsModule, RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
+     IonList, IonItem, IonInput, IonIcon, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonMenu, IonMenuButton
   ],
 })
 export class HomePage {
@@ -23,6 +22,8 @@ export class HomePage {
   listedRecipes: any[] = [];
   // Base API URL for ingredient search
   baseAPIUrl = "https://api.spoonacular.com/recipes/complexSearch?apiKey=70759a4f7911402abcc53d3c51d3b759";
+  // Variable to indicate if a search has been performed
+  hasSearched: boolean = false;
 
   constructor(private httpService: HttpService, private userData: UserDataService) {
     
@@ -33,7 +34,7 @@ export class HomePage {
     const ingredientSearchParams = this.parseSearchInput(this.searchString);
     const res = await this.httpService.get({url: `${this.baseAPIUrl}${ingredientSearchParams}`});
     this.listedRecipes = res.data.results;
-    console.log(this.listedRecipes);
+    this.hasSearched = true;
   }
 
   // Converts user search input into params for API requests

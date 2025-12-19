@@ -51,10 +51,10 @@ export class UserDataService {
   async deleteRecipeFromFavourites(recipeID: string) {
     const favRecipes = await this.get("favRecipes");
 
-    const updateRecipes = favRecipes.filter(
+    const updatedRecipes = favRecipes.filter(
       (recipe: { id: number; }) => recipe.id !== parseInt(recipeID)
     );
-    this.set("favRecipes", updateRecipes);
+    this.set("favRecipes", updatedRecipes);
   }
   
   async isRecipeAFavourite(recipeID : string) : Promise<boolean> {

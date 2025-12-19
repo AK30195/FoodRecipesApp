@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonButton, 
-  IonCardSubtitle, IonList, IonListHeader, IonItem, IonLabel, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardTitle, IonCardHeader, IonButton, 
+  IonCardSubtitle, IonList, IonItem, IonLabel, IonIcon} from '@ionic/angular/standalone';
 import { HttpService } from '../../services/http-service/http-service';
 import { UserDataService } from '../../services/user-data-service/user-data-service';
 
@@ -11,8 +11,8 @@ import { UserDataService } from '../../services/user-data-service/user-data-serv
   templateUrl: './recipe-details.page.html',
   styleUrls: ['./recipe-details.page.scss'],
   standalone: true,
-  imports: [IonIcon, IonLabel, IonList, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent,
-    IonCardTitle, IonCardHeader, CommonModule, FormsModule, IonCardSubtitle, IonListHeader, IonItem, IonIcon]
+  imports: [ IonIcon, IonLabel, IonList, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, IonCard,
+    IonCardTitle, IonCardHeader, CommonModule, FormsModule, IonCardSubtitle, IonItem, IonIcon]
 })
 export class RecipeDetailsPage {
   // Local variable to hold selected recipe ID
@@ -72,10 +72,12 @@ export class RecipeDetailsPage {
       this.selectedRecipe.title, 
       this.selectedRecipe.image
     )
+    this.selectedRecipeIsAFavourite = true;
   }
 
   async removeFromFavourites() {
     this.userData.deleteRecipeFromFavourites(this.selectedRecipe.id);
+    this.selectedRecipeIsAFavourite = false;
   }
 
 }

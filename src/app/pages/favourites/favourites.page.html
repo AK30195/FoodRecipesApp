@@ -7,11 +7,11 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">favourites</ion-title>
+      <ion-title size="medium">Your Favourite Recipes</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  @if(favouriteRecipes) {
+  @if(favouriteRecipes.length > 0) {
     @for(recipe of favouriteRecipes; track recipe.id) {
     <ion-card>
       <ion-card-header>

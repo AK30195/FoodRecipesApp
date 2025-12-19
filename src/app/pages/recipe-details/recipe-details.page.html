@@ -20,31 +20,41 @@
   </ion-header>
 
   @if(selectedRecipe.extendedIngredients) {
-    <ion-list>
-    <ion-list-header lines="full">Ingredients</ion-list-header>
+    <ion-item>
+      <ion-label>
+        <h2>Ingredients</h2>
+      </ion-label>
+    </ion-item>
+    
     @for(ingredient of selectedRecipe.extendedIngredients; track ingredient.id) {
-      <ion-item>
+      
       <ion-card>
         <div>
           <img src={{ingredientImagesBaseUrl}}{{ingredient.image}} alt="Ingredient Image">
         </div>
         <ion-card-header>
-          <ion-card-title>{{ingredient.original}}</ion-card-title>
-          @if(selectedUnitSystem == "US") {
-            <ion-card-subtitle>{{ingredient.measures.us.amount}} {{ingredient.measures.us.unitLong}}</ion-card-subtitle>
-          } @else {
-            <ion-card-subtitle>{{ingredient.measures.metric.amount}} {{ingredient.measures.metric.unitLong}}</ion-card-subtitle>
-          } 
+          <div>
+            <ion-card-title>{{ingredient.original}}</ion-card-title>
+          </div>
+          <div>
+            @if(selectedUnitSystem == "US") {
+              <ion-card-subtitle>{{ingredient.measures.us.amount}} {{ingredient.measures.us.unitLong}}</ion-card-subtitle>
+            } @else {
+              <ion-card-subtitle>{{ingredient.measures.metric.amount}} {{ingredient.measures.metric.unitLong}}</ion-card-subtitle>
+            } 
+          </div>
         </ion-card-header>
       </ion-card>
-      </ion-item>
     }
-    </ion-list>
   }
 
   @if(selectedRecipe.analyzedInstructions) {
     <ion-list>
-      <ion-list-header lines="full">Instructions</ion-list-header>
+      <ion-item >
+        <ion-label>
+          <h2>Instructions</h2>
+        </ion-label>
+      </ion-item>
       @for(instruction of selectedRecipe.analyzedInstructions; track instruction.name) {
         @for(step of instruction.steps; track step.number) {
           <ion-item>
