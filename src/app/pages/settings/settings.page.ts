@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonSelect, IonSelectOption, IonList, IonItem, IonIcon } from '@ionic/angular/standalone';
-import { UserDataService } from '../services/user-data-service/user-data-service';
+import { UserDataService } from '../../services/user-data-service/user-data-service';
 
 @Component({
   selector: 'app-settings',

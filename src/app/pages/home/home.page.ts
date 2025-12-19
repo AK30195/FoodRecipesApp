@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { HttpService } from '../services/http-service/http-service';
-import { UserDataService } from '../services/user-data-service/user-data-service';
+import { HttpService } from '../../services/http-service/http-service';
+import { UserDataService } from '../../services/user-data-service/user-data-service';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonList, IonItem, IonInput, IonIcon,
   IonCard, IonCardHeader, IonCardContent, IonCardTitle
  } from '@ionic/angular/standalone';

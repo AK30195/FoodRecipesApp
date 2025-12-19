@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonButton, 
   IonCardSubtitle, IonList, IonListHeader, IonItem, IonLabel, IonIcon } from '@ionic/angular/standalone';
-import { HttpService } from '../services/http-service/http-service';
-import { UserDataService } from '../services/user-data-service/user-data-service';
+import { HttpService } from '../../services/http-service/http-service';
+import { UserDataService } from '../../services/user-data-service/user-data-service';
 
 @Component({
   selector: 'app-recipe-details',
