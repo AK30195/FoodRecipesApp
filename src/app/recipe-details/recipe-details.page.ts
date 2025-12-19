@@ -19,11 +19,14 @@ export class RecipeDetailsPage {
   selectedRecipeID!: string;
   // Object to hold selected recipe details
   selectedRecipe: any = {};
+  // Local variable to hold selected unit system
+  selectedUnitSystem!: "metric" | "US";
 
   // Used for API string literal in loadRecipeDetails()
   baseAPIUrl = "https://api.spoonacular.com/recipes/";
   apiKey = "70759a4f7911402abcc53d3c51d3b759"
 
+  // Base url for loading ingredient images. Used in html template
   ingredientImagesBaseUrl = "https://spoonacular.com/cdn/ingredients_100x100/";
 
   constructor(private httpService: HttpService, private userData: UserDataService) { }
@@ -31,11 +34,18 @@ export class RecipeDetailsPage {
   async ionViewWillEnter() {
     // Get selected recipe ID from user data service and assign to local variable
     this.selectedRecipeID = await this.userData.getSelectedRecipeID();
+    // Get selected setting for unit measures for recipe ingredients
+    this.selectedUnitSystem = await this.userData.getSelectedUnitSystem();
     
     // Log to console if no selected recipe ID found
     if(!this.selectedRecipeID) {
       console.error("No selected recipe ID found in user data.");
       return;
+    }
+
+    // If no user selected unit system default to metric
+    if(!this.selectedUnitSystem) {
+      this.selectedUnitSystem = "metric";
     }
 
     await this.loadRecipeDetails();

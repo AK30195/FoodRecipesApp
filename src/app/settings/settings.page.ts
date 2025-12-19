@@ -18,7 +18,7 @@ export class SettingsPage {
 
   constructor(private userData: UserDataService) { }
 
-  async IonOneViewWillEnter() {
+  async ionViewWillEnter() {
     const savedUnitSetting = await this.userData.get("unitSetting");
     if (savedUnitSetting === "metric" || savedUnitSetting === "US") {
       this.unitSetting = savedUnitSetting;
@@ -28,7 +28,5 @@ export class SettingsPage {
   async handleUnitSettingChange() {
     await this.userData.set("unitSetting", this.unitSetting);
   }
-
-  
 
 }

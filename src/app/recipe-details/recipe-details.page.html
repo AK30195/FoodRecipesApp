@@ -21,7 +21,7 @@
 
   @if(selectedRecipe.extendedIngredients) {
     <ion-list>
-    <ion-list-header>Ingredients</ion-list-header>
+    <ion-list-header lines="full">Ingredients</ion-list-header>
     @for(ingredient of selectedRecipe.extendedIngredients; track ingredient.id) {
       <ion-item>
       <ion-card>
@@ -30,7 +30,11 @@
         </div>
         <ion-card-header>
           <ion-card-title>{{ingredient.original}}</ion-card-title>
-          <ion-card-subtitle>{{ingredient.amount}} {{ingredient.unit}}</ion-card-subtitle>
+          @if(selectedUnitSystem == "US") {
+            <ion-card-subtitle>{{ingredient.measures.us.amount}} {{ingredient.measures.us.unitLong}}</ion-card-subtitle>
+          } @else {
+            <ion-card-subtitle>{{ingredient.measures.metric.amount}} {{ingredient.measures.metric.unitLong}}</ion-card-subtitle>
+          } 
         </ion-card-header>
       </ion-card>
       </ion-item>
@@ -40,7 +44,7 @@
 
   @if(selectedRecipe.analyzedInstructions) {
     <ion-list>
-      <ion-list-header>Instructions</ion-list-header>
+      <ion-list-header lines="full">Instructions</ion-list-header>
       @for(instruction of selectedRecipe.analyzedInstructions; track instruction.name) {
         @for(step of instruction.steps; track step.number) {
           <ion-item>
@@ -49,6 +53,7 @@
         }
       }
     </ion-list>
+    <ion-button expand="full">Add to favourites<ion-icon name="heart-outline"></ion-icon></ion-button>
   }
-  <ion-button expand="full">Add to favourites<ion-icon name="heart-outline"></ion-icon></ion-button>
+  
 </ion-content>

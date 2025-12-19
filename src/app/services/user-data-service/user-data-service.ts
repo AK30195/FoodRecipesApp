@@ -27,4 +27,8 @@ export class UserDataService {
   async getSelectedRecipeID() {
     return await this.userStorage?.get("selectedRecipeID");
   }
+
+  async getSelectedUnitSystem() {
+    return await this.userStorage?.get("unitSetting");
+  }
 }
