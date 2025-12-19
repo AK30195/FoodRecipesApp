@@ -53,7 +53,18 @@
         }
       }
     </ion-list>
-    <ion-button expand="full">Add to favourites<ion-icon name="heart-outline"></ion-icon></ion-button>
+    @if(selectedRecipeIsAFavourite) {
+      <ion-button (click)="removeFromFavourites()" expand="full">
+        Remove from favourites
+        <ion-icon name="heart-outline"></ion-icon>
+      </ion-button>
+    } @else{
+      <ion-button (click)="addToFavourites()" expand="full">
+        Add to favourites
+        <ion-icon name="heart-outline"></ion-icon>
+      </ion-button>
+    }
+    
   }
   
 </ion-content>

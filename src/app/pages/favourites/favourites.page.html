@@ -10,4 +10,32 @@
       <ion-title size="large">favourites</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  @if(favouriteRecipes) {
+    @for(recipe of favouriteRecipes; track recipe.id) {
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{recipe.title}}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div>
+          <img src={{recipe.image}} alt="Recipe Image">
+        </div>
+        <div>
+          <ion-button (click)="handleRecipeDetailsClick(recipe.id)" [routerLink]="['/recipe-details']">Details</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    }
+  } @else {
+    <ion-item>
+      <h2>No recipes added to Favourites yet.</h2>
+    </ion-item>
+    <ion-item>
+      <p>Use the home page to search recipes and click the 
+        <strong>Add to Favourites</strong> 
+        button to save recipes here!</p>
+    </ion-item>
+  } 
 </ion-content>

@@ -21,6 +21,8 @@ export class RecipeDetailsPage {
   selectedRecipe: any = {};
   // Local variable to hold selected unit system
   selectedUnitSystem!: "metric" | "US";
+  // Denotes whether recipe has been added to favourites by user
+  selectedRecipeIsAFavourite!: boolean;
 
   // Used for API string literal in loadRecipeDetails()
   baseAPIUrl = "https://api.spoonacular.com/recipes/";
@@ -36,6 +38,7 @@ export class RecipeDetailsPage {
     this.selectedRecipeID = await this.userData.getSelectedRecipeID();
     // Get selected setting for unit measures for recipe ingredients
     this.selectedUnitSystem = await this.userData.getSelectedUnitSystem();
+
     
     // Log to console if no selected recipe ID found
     if(!this.selectedRecipeID) {
@@ -47,6 +50,9 @@ export class RecipeDetailsPage {
     if(!this.selectedUnitSystem) {
       this.selectedUnitSystem = "metric";
     }
+    
+    // Establish if recipe is a favourite for favourite button rendering
+    this.selectedRecipeIsAFavourite = await this.userData.isRecipeAFavourite(this.selectedRecipeID);
 
     await this.loadRecipeDetails();
   }
@@ -58,6 +64,18 @@ export class RecipeDetailsPage {
     });
     this.selectedRecipe = res.data;
     console.log(this.selectedRecipe);
+  }
+
+  async addToFavourites() {
+    this.userData.addRecipeToFavourites(
+      this.selectedRecipe.id, 
+      this.selectedRecipe.title, 
+      this.selectedRecipe.image
+    )
+  }
+
+  async removeFromFavourites() {
+    this.userData.deleteRecipeFromFavourites(this.selectedRecipe.id);
   }
 
 }

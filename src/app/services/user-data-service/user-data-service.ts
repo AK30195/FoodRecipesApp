@@ -31,4 +31,39 @@ export class UserDataService {
   async getSelectedUnitSystem() {
     return await this.userStorage?.get("unitSetting");
   }
+
+  async addRecipeToFavourites(recipeID: number, recipeTitle: string, recipeImage: string) {
+    const newRecipe = {
+      id: recipeID,
+      title: recipeTitle,
+      image: recipeImage
+    }
+
+    let favRecipes = await this.get("favRecipes");
+
+    if(!favRecipes) {
+      this.set("favRecipes", [newRecipe])
+    } else {
+      this.set("favRecipes", [...favRecipes, newRecipe])
+    } 
+  }
+
+  async deleteRecipeFromFavourites(recipeID: string) {
+    const favRecipes = await this.get("favRecipes");
+
+    const updateRecipes = favRecipes.filter(
+      (recipe: { id: number; }) => recipe.id !== parseInt(recipeID)
+    );
+    this.set("favRecipes", updateRecipes);
+  }
+  
+  async isRecipeAFavourite(recipeID : string) : Promise<boolean> {
+    const favRecipes = await this.get("favRecipes");
+
+    if(favRecipes) {
+      return favRecipes.some((recipe: { id: number; }) => recipe.id === parseInt(recipeID));
+    }
+
+    return false;
+  }
 }

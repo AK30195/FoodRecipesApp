@@ -33,6 +33,7 @@ export class HomePage {
     const ingredientSearchParams = this.parseSearchInput(this.searchString);
     const res = await this.httpService.get({url: `${this.baseAPIUrl}${ingredientSearchParams}`});
     this.listedRecipes = res.data.results;
+    console.log(this.listedRecipes);
   }
 
   // Converts user search input into params for API requests
