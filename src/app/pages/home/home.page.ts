@@ -5,19 +5,23 @@ import { RouterLink } from '@angular/router';
 import { HttpService } from '../../services/http-service/http-service';
 import { UserDataService } from '../../services/user-data-service/user-data-service';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonList, IonItem, IonInput,
-  IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonMenuButton, IonButtons } from '@ionic/angular/standalone';
+  IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonMenuButton, IonButtons, IonSelect, 
+  IonSelectOption} from '@ionic/angular/standalone';
 
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [ IonButtons, CommonModule, FormsModule, RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
-    IonList, IonItem, IonInput, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonMenuButton],
+  imports: [ IonButtons, CommonModule, FormsModule, RouterLink, IonHeader, IonToolbar,
+     IonTitle, IonContent, IonButton, IonList, IonItem, IonInput, IonCard, IonCardHeader,
+      IonCardContent, IonCardTitle, IonMenuButton, IonSelect, IonSelectOption],
 })
 export class HomePage {
   // Tracks user input for ingredient search
   searchString: string = "";
+  // Holds user's selected dietary preferences
+  dietaryPrefs: string[] = [];
   // Holds recipes returned from API based on search
   listedRecipes: any[] = [];
   // Base API URL for ingredient search
@@ -29,10 +33,22 @@ export class HomePage {
     
   }
 
-  // Search recipes based on ingredients entered by user
-  async searchByIngredients() {
+  // Search recipes based on user input
+  async searchRecipes() {
+    // Generate search params for ingredients entered by user
     const ingredientSearchParams = this.parseSearchInput(this.searchString);
-    const res = await this.httpService.get({url: `${this.baseAPIUrl}${ingredientSearchParams}`});
+
+    // Generate dietary preference params for API request
+    let dietarySearchParams = '';
+    if(this.dietaryPrefs.length > 0) {
+      dietarySearchParams = `&diet=${this.dietaryPrefs.join(',')}`
+    };
+    // Make API request with generated search params
+    const res = await this.httpService.get(
+      {url: `${this.baseAPIUrl}${ingredientSearchParams}${dietarySearchParams}`}
+    );
+
+    // Store returned recipes for display
     this.listedRecipes = res.data.results;
     this.hasSearched = true;
   }

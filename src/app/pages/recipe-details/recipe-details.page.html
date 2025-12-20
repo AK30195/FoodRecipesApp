@@ -12,40 +12,36 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
+  
   @if(selectedRecipe.extendedIngredients) {
     <ion-item>
-      <ion-label>
+      <ion-label color="primary">
         <h2>Ingredients</h2>
       </ion-label>
     </ion-item>
     
-    @for(ingredient of selectedRecipe.extendedIngredients; track ingredient.id) {
-      
+    @for(ingredient of selectedRecipe.extendedIngredients; track ingredient.id) {  
       <ion-card>
-        <div>
-          <img src={{ingredientImagesBaseUrl}}{{ingredient.image}} alt="Ingredient Image">
-        </div>
+        <img src={{ingredientImagesBaseUrl}}{{ingredient.image}} alt="Ingredient Image">
         <ion-card-header>
-          <div>
-            <ion-card-title>{{ingredient.original}}</ion-card-title>
-          </div>
-          <div>
+          <ion-card-title>{{ingredient.original}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
             @if(selectedUnitSystem == "US") {
               <ion-card-subtitle>{{ingredient.measures.us.amount}} {{ingredient.measures.us.unitLong}}</ion-card-subtitle>
             } @else {
               <ion-card-subtitle>{{ingredient.measures.metric.amount}} {{ingredient.measures.metric.unitLong}}</ion-card-subtitle>
             } 
-          </div>
-        </ion-card-header>
+        </ion-card-content>
       </ion-card>
     }
   }
 
   @if(selectedRecipe.analyzedInstructions) {
+    <ion-item-divider></ion-item-divider>
     <ion-list>
       <ion-item >
-        <ion-label>
+        <ion-label color="primary">
           <h2>Instructions</h2>
         </ion-label>
       </ion-item>
@@ -55,6 +51,24 @@
             <ion-label><strong>{{step.number}}.</strong> {{step.step}}</ion-label>
           </ion-item>
         }
+      }
+    </ion-list>
+    <ion-item-divider></ion-item-divider>
+  }
+    
+    @if(selectedRecipeNutrients.length > 0) {
+    <ion-list>
+      <ion-item>
+        <ion-label color="primary">
+          <h2>Nutritional Information (per serving)</h2>
+        </ion-label>
+      </ion-item>
+      @for(nutrient of selectedRecipeNutrients; track nutrient.name) {
+        <ion-item>
+          <ion-label>
+            <strong>{{nutrient.name}}:</strong> {{nutrient.amount}} {{nutrient.unit}}
+          </ion-label>
+        </ion-item>
       }
     </ion-list>
     @if(selectedRecipeIsAFavourite) {
@@ -68,7 +82,5 @@
         <ion-icon name="heart-outline"></ion-icon>
       </ion-button>
     }
-    
-  }
-  
+  }    
 </ion-content>

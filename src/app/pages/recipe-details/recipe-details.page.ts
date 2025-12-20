@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardTitle, IonCardHeader, IonButton, 
-  IonCardSubtitle, IonList, IonItem, IonLabel, IonIcon, IonButtons, IonMenuButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardTitle, IonCardHeader, 
+  IonButton, IonCardSubtitle, IonList, IonItem, IonLabel, IonIcon, IonButtons, 
+  IonMenuButton, IonItemDivider, IonCardContent } from '@ionic/angular/standalone';
 import { HttpService } from '../../services/http-service/http-service';
 import { UserDataService } from '../../services/user-data-service/user-data-service';
 
@@ -11,14 +12,17 @@ import { UserDataService } from '../../services/user-data-service/user-data-serv
   templateUrl: './recipe-details.page.html',
   styleUrls: ['./recipe-details.page.scss'],
   standalone: true,
-  imports: [IonButtons,  IonIcon, IonLabel, IonList, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, IonCard,
-    IonCardTitle, IonCardHeader, CommonModule, FormsModule, IonCardSubtitle, IonItem, IonIcon, IonMenuButton]
+  imports: [IonButtons,  IonIcon, IonLabel, IonList, IonButton, IonContent, IonHeader, 
+    IonTitle, IonToolbar, IonCard, IonCardTitle, IonCardHeader, CommonModule, FormsModule,
+    IonCardSubtitle, IonItem, IonIcon, IonMenuButton, IonItemDivider, IonCardContent]
 })
 export class RecipeDetailsPage {
   // Local variable to hold selected recipe ID
   selectedRecipeID!: string;
   // Object to hold selected recipe details
   selectedRecipe: any = {};
+  // Array to hold selected recipe nutrients
+  selectedRecipeNutrients: any[] = [];
   // Local variable to hold selected unit system
   selectedUnitSystem!: "metric" | "US";
   // Denotes whether recipe has been added to favourites by user
@@ -60,9 +64,21 @@ export class RecipeDetailsPage {
   // Load details for selected recipe from API
   async loadRecipeDetails() {
     const res = await this.httpService.get({
-      url: `${this.baseAPIUrl}${this.selectedRecipeID}/information?apiKey=${this.apiKey}`
+      url: `${this.baseAPIUrl}${this.selectedRecipeID}/information?apiKey=${this.apiKey}&includeNutrition=true`
     });
+    // Store all recipe details
     this.selectedRecipe = res.data;
+    // Filter and store only desired nutrients from recipe details
+    this.selectedRecipeNutrients = this.filterNutrientsJSON(
+      this.selectedRecipe.nutrition.nutrients
+    );
+  }
+
+  // Extracts only needed nutritional info from JSON for easier use in html template
+  filterNutrientsJSON(nutrients: any[]) {
+    const desiredNutrients = ["Calories", "Protein", "Fat", "Saturated Fat", 
+      "Carbohydrates", "Sugar", "Fiber", "Cholesterol", "Sodium"];
+    return nutrients.filter(nutrient => desiredNutrients.includes(nutrient.name));
   }
 
   // Add selected recipe to favourites in user data service

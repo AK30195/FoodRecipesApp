@@ -51,3 +51,18 @@ html.md.dark {
   --ion-icon-color: #ffffff;
   --ion-border-color: #333333;
 }
+
+/* Additional styling for dark mode */
+html.dark {
+  ion-card-title {
+    --color: var(--ion-text-color, #ffffff);
+  }
+
+  ion-card-subtitle {
+    --color: var(--ion-color-step-400, #b3b3b3);
+  }
+
+  ion-icon {
+    color: var(--ion-text-color, #ffffff);
+  }
+}

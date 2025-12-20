@@ -13,8 +13,19 @@
     <ion-item>
       <ion-input [(ngModel)]="searchString" placeholder="Ingredients" label="Enter Ingredients"></ion-input>
     </ion-item>
+    <ion-item>
+    <ion-select aria-label="Dietary" [(ngModel)]="dietaryPrefs" 
+      placeholder="Select dietary preference" [multiple]="true" interface="popover">
+      <ion-select-option value="vegetarian">Vegetarian</ion-select-option>
+      <ion-select-option value="vegan">Vegan</ion-select-option>
+      <ion-select-option value="pescetarian">Pescetarian</ion-select-option>
+      <ion-select-option value="gluten free">Gluten Free</ion-select-option>
+      <ion-select-option value="ketogenic">Ketogenic</ion-select-option>
+      <ion-select-option value="paleo">Paleo</ion-select-option>
+    </ion-select>
+  </ion-item>
   </ion-list>
-  <ion-button expand="full" (click)="searchByIngredients()">Search Recipes</ion-button>
+  <ion-button expand="full" (click)="searchRecipes()">Search Recipes</ion-button>
    
   @if(listedRecipes) {
     @for(recipe of listedRecipes; track recipe.id) {
