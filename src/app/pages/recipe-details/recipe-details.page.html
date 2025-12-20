@@ -1,5 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     @if(selectedRecipe.title) {
       <ion-title>{{selectedRecipe.title}}</ion-title>
     } @else {
@@ -9,15 +12,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      @if(selectedRecipe.title) {
-      <ion-title size="large">{{selectedRecipe.title}}</ion-title>
-    } @else {
-      <ion-title>Recipe not found</ion-title>
-    }
-    </ion-toolbar>
-  </ion-header>
 
   @if(selectedRecipe.extendedIngredients) {
     <ion-item>

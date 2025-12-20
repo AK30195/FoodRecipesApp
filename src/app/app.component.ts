@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { settingsOutline, heartOutline} from 'ionicons/icons';
+import { AppMenuComponent } from './components/app-menu/app-menu.component';
+import { settingsOutline, heartOutline, homeOutline} from 'ionicons/icons';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonApp, IonRouterOutlet],
+  imports: [IonApp, IonRouterOutlet, AppMenuComponent],
 })
 export class AppComponent {
   constructor() {
-    addIcons({settingsOutline, heartOutline});
+    addIcons({settingsOutline, heartOutline, homeOutline});
   }
 }

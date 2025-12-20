@@ -4,16 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { HttpService } from '../../services/http-service/http-service';
 import { UserDataService } from '../../services/user-data-service/user-data-service';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonList, IonItem, IonInput, IonIcon,
-  IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonMenu, IonMenuButton, IonButtons, IonLabel } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonList, IonItem, IonInput,
+  IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonMenuButton, IonButtons } from '@ionic/angular/standalone';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonLabel, IonButtons, CommonModule, FormsModule, RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
-     IonList, IonItem, IonInput, IonIcon, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonMenu, IonMenuButton
-  ],
+  imports: [ IonButtons, CommonModule, FormsModule, RouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
+    IonList, IonItem, IonInput, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonMenuButton],
 })
 export class HomePage {
   // Tracks user input for ingredient search
@@ -40,12 +40,12 @@ export class HomePage {
   // Converts user search input into params for API requests
   parseSearchInput(ingredients: string) : string {
     let ingredientArray = ingredients
-      .toLowerCase() 
+      .toLowerCase() // Convert to lowercase for consistency
       .split(/[,\s]+/) // Split by comma or space to separate ingredients
       .map(word => word.replace(/[^a-z]/g, '')) // remove non-letters
       .filter(Boolean); // Check word isn't blank after processing
 
-    // Join separated ingredients as search params for url
+    // Join separated ingredient words as search params for url
     return `&query=${ingredientArray.join(' ')}`;
   }
 

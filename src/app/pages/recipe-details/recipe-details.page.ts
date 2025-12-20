@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardTitle, IonCardHeader, IonButton, 
-  IonCardSubtitle, IonList, IonItem, IonLabel, IonIcon} from '@ionic/angular/standalone';
+  IonCardSubtitle, IonList, IonItem, IonLabel, IonIcon, IonButtons, IonMenuButton } from '@ionic/angular/standalone';
 import { HttpService } from '../../services/http-service/http-service';
 import { UserDataService } from '../../services/user-data-service/user-data-service';
 
@@ -11,8 +11,8 @@ import { UserDataService } from '../../services/user-data-service/user-data-serv
   templateUrl: './recipe-details.page.html',
   styleUrls: ['./recipe-details.page.scss'],
   standalone: true,
-  imports: [ IonIcon, IonLabel, IonList, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, IonCard,
-    IonCardTitle, IonCardHeader, CommonModule, FormsModule, IonCardSubtitle, IonItem, IonIcon]
+  imports: [IonButtons,  IonIcon, IonLabel, IonList, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, IonCard,
+    IonCardTitle, IonCardHeader, CommonModule, FormsModule, IonCardSubtitle, IonItem, IonIcon, IonMenuButton]
 })
 export class RecipeDetailsPage {
   // Local variable to hold selected recipe ID
@@ -33,20 +33,20 @@ export class RecipeDetailsPage {
 
   constructor(private httpService: HttpService, private userData: UserDataService) { }
 
+  // Lifecycle event called when view is entered to load selected recipe details
   async ionViewWillEnter() {
     // Get selected recipe ID from user data service and assign to local variable
     this.selectedRecipeID = await this.userData.getSelectedRecipeID();
     // Get selected setting for unit measures for recipe ingredients
     this.selectedUnitSystem = await this.userData.getSelectedUnitSystem();
 
-    
     // Log to console if no selected recipe ID found
     if(!this.selectedRecipeID) {
       console.error("No selected recipe ID found in user data.");
       return;
     }
 
-    // If no user selected unit system default to metric
+    // If no user-selected unit system default to metric
     if(!this.selectedUnitSystem) {
       this.selectedUnitSystem = "metric";
     }
@@ -63,9 +63,9 @@ export class RecipeDetailsPage {
       url: `${this.baseAPIUrl}${this.selectedRecipeID}/information?apiKey=${this.apiKey}`
     });
     this.selectedRecipe = res.data;
-    console.log(this.selectedRecipe);
   }
 
+  // Add selected recipe to favourites in user data service
   async addToFavourites() {
     this.userData.addRecipeToFavourites(
       this.selectedRecipe.id, 
@@ -75,6 +75,7 @@ export class RecipeDetailsPage {
     this.selectedRecipeIsAFavourite = true;
   }
 
+  // Remove selected recipe from favourites in user data service
   async removeFromFavourites() {
     this.userData.deleteRecipeFromFavourites(this.selectedRecipe.id);
     this.selectedRecipeIsAFavourite = false;
