@@ -15,8 +15,13 @@
   
   @if(selectedRecipe.extendedIngredients) {
     <ion-item>
+      <ion-label>
+        Preparation Time: {{selectedRecipe.readyInMinutes}} mins
+      </ion-label>
+    </ion-item>
+    <ion-item>
       <ion-label color="primary">
-        <h2>Ingredients</h2>
+        Ingredients
       </ion-label>
     </ion-item>
     
@@ -42,7 +47,7 @@
     <ion-list>
       <ion-item >
         <ion-label color="primary">
-          <h2>Instructions</h2>
+          Instructions
         </ion-label>
       </ion-item>
       @for(instruction of selectedRecipe.analyzedInstructions; track instruction.name) {
@@ -60,7 +65,7 @@
     <ion-list>
       <ion-item>
         <ion-label color="primary">
-          <h2>Nutritional Information (per serving)</h2>
+          Nutritional Information (per serving)
         </ion-label>
       </ion-item>
       @for(nutrient of selectedRecipeNutrients; track nutrient.name) {

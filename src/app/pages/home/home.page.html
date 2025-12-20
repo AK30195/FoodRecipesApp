@@ -14,16 +14,25 @@
       <ion-input [(ngModel)]="searchString" placeholder="Ingredients" label="Enter Ingredients"></ion-input>
     </ion-item>
     <ion-item>
-    <ion-select aria-label="Dietary" [(ngModel)]="dietaryPrefs" 
-      placeholder="Select dietary preference" [multiple]="true" interface="popover">
-      <ion-select-option value="vegetarian">Vegetarian</ion-select-option>
-      <ion-select-option value="vegan">Vegan</ion-select-option>
-      <ion-select-option value="pescetarian">Pescetarian</ion-select-option>
-      <ion-select-option value="gluten free">Gluten Free</ion-select-option>
-      <ion-select-option value="ketogenic">Ketogenic</ion-select-option>
-      <ion-select-option value="paleo">Paleo</ion-select-option>
-    </ion-select>
-  </ion-item>
+      <ion-select aria-label="Dietary" [(ngModel)]="dietaryPrefs" 
+        placeholder="Select dietary preference" [multiple]="true" interface="popover">
+        <ion-select-option value="vegetarian">Vegetarian</ion-select-option>
+        <ion-select-option value="vegan">Vegan</ion-select-option>
+        <ion-select-option value="pescetarian">Pescetarian</ion-select-option>
+        <ion-select-option value="gluten free">Gluten Free</ion-select-option>
+        <ion-select-option value="ketogenic">Ketogenic</ion-select-option>
+        <ion-select-option value="paleo">Paleo</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-select aria-label="Max Cooking Time" [(ngModel)]="maxCookTime" 
+        placeholder="Select max. cooking time" interface="popover">
+        <ion-select-option value="15">15 mins</ion-select-option>
+        <ion-select-option value="30">30 mins</ion-select-option>
+        <ion-select-option value="45">45 mins</ion-select-option>
+        <ion-select-option value="60">60 mins</ion-select-option>
+      </ion-select>
+    </ion-item>
   </ion-list>
   <ion-button expand="full" (click)="searchRecipes()">Search Recipes</ion-button>
    

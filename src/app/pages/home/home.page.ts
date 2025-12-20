@@ -24,14 +24,14 @@ export class HomePage {
   dietaryPrefs: string[] = [];
   // Holds recipes returned from API based on search
   listedRecipes: any[] = [];
+  // Holds user's max cook time preference
+  maxCookTime: number | null = null; // in minutes
   // Base API URL for ingredient search
   baseAPIUrl = "https://api.spoonacular.com/recipes/complexSearch?apiKey=70759a4f7911402abcc53d3c51d3b759";
   // Variable to indicate if a search has been performed
   hasSearched: boolean = false;
 
-  constructor(private httpService: HttpService, private userData: UserDataService) {
-    
-  }
+  constructor(private httpService: HttpService, private userData: UserDataService) {}
 
   // Search recipes based on user input
   async searchRecipes() {
@@ -43,9 +43,18 @@ export class HomePage {
     if(this.dietaryPrefs.length > 0) {
       dietarySearchParams = `&diet=${this.dietaryPrefs.join(',')}`
     };
+
+    // Generate max cook time param for API request
+    let maxCookTimeParam = '';
+    if(this.maxCookTime !== null) {
+      maxCookTimeParam = `&maxReadyTime=${this.maxCookTime}`;
+    }
+    // Combine all search params
+    const searchParams = `${ingredientSearchParams}${dietarySearchParams}${maxCookTimeParam}`;
+
     // Make API request with generated search params
     const res = await this.httpService.get(
-      {url: `${this.baseAPIUrl}${ingredientSearchParams}${dietarySearchParams}`}
+      {url: `${this.baseAPIUrl}${searchParams}`}
     );
 
     // Store returned recipes for display

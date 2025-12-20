@@ -6,6 +6,7 @@ import { CapacitorHttp, HttpOptions } from '@capacitor/core';
 })
 export class HttpService {
 
+  // Handles GET requests to API
   async get(options: HttpOptions) {
     return await CapacitorHttp.get(options);
   }

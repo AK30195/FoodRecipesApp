@@ -65,4 +65,8 @@ html.dark {
   ion-icon {
     color: var(--ion-text-color, #ffffff);
   }
+
+  ion-item-divider {
+    --background: var(--ion-background-color-step-200, #1c1c1d); 
+  }
 }
