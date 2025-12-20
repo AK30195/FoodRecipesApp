@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardHeader, 
-  IonCardTitle, IonButton, IonItem, IonButtons, IonMenuButton } from '@ionic/angular/standalone';
+  IonCardTitle, IonButton, IonItem, IonButtons, IonMenuButton, IonIcon } from '@ionic/angular/standalone';
 import { UserDataService } from 'src/app/services/user-data-service/user-data-service';
 
 @Component({
@@ -12,7 +12,8 @@ import { UserDataService } from 'src/app/services/user-data-service/user-data-se
   styleUrls: ['./favourites.page.scss'],
   standalone: true,
   imports: [IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,
-    IonCard, IonCardContent,IonCardHeader, IonCardTitle, IonButton, RouterLink, IonItem, IonMenuButton 
+    IonCard, IonCardContent,IonCardHeader, IonCardTitle, IonButton, RouterLink, IonItem, 
+    IonMenuButton, IonIcon
   ]
 })
 export class FavouritesPage {

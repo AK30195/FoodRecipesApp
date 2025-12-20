@@ -11,9 +11,17 @@
 
   <ion-list>
     <ion-item>
-      <ion-select label="Unit System" [(ngModel)]="unitSetting" (ionChange)="handleUnitSettingChange()">
+      <ion-select label="Unit System" [(ngModel)]="unitSetting" 
+      (ionChange)="handleUnitSettingChange()" interface="popover">
       <ion-select-option value="metric">Metric</ion-select-option>
       <ion-select-option value="US">US</ion-select-option>
+    </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-select label="Theme" [(ngModel)]="themeSetting" 
+      (ionChange)="handleThemeSettingChange()" interface="popover">
+      <ion-select-option value="light">Light</ion-select-option>
+      <ion-select-option value="dark">Dark</ion-select-option>
     </ion-select>
     </ion-item>
   </ion-list>

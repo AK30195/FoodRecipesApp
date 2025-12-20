@@ -16,20 +16,30 @@ import { UserDataService } from '../../services/user-data-service/user-data-serv
 export class SettingsPage {
   // Variable to hold the selected unit setting
   unitSetting: "metric" | "US" = "metric";
+  // Variable to hold the selected theme setting
+  themeSetting: "light" | "dark" = "light";
+
 
   constructor(private userData: UserDataService) { }
 
-  // Load the saved unit setting when the view is about to enter
+  // Load the saved user settings when the view is about to enter
   async ionViewWillEnter() {
-    const savedUnitSetting = await this.userData.get("unitSetting");
-    if (savedUnitSetting === "metric" || savedUnitSetting === "US") {
-      this.unitSetting = savedUnitSetting;
-    }
+     this.unitSetting =
+    (await this.userData.get("unitSetting")) ?? "metric";
+
+    this.themeSetting =
+    (await this.userData.get("themeSetting")) ?? "light";
+
   }
   
   // Handle changes to the unit setting
   async handleUnitSettingChange() {
     await this.userData.set("unitSetting", this.unitSetting);
   }
+
+  async handleThemeSettingChange() {
+    await this.userData.setThemeSetting(this.themeSetting);
+  }
+
 
 }

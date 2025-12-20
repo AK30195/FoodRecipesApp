@@ -6,9 +6,10 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class UserDataService {
   private userStorage! : Storage;
+  private ready: Promise<void>;
   
   constructor(private storage: Storage) {
-    this.init();
+    this.ready =  this.init();
   }
 
   async init() {
@@ -17,19 +18,30 @@ export class UserDataService {
   }
 
   async set(key : string, value : any) {
+    await this.ready;
     await this.userStorage?.set(key, value);
   }
 
   async get(key : string) {
+    await this.ready;
     return await this.userStorage?.get(key);
   }
 
   async getSelectedRecipeID() {
-    return await this.userStorage?.get("selectedRecipeID");
+    return await this.get("selectedRecipeID");
   }
 
   async getSelectedUnitSystem() {
-    return await this.userStorage?.get("unitSetting");
+    return await this.get("unitSetting");
+  }
+
+  async setThemeSetting(theme: "light" | "dark") {
+    await this.set("themeSetting", theme);
+    this.applyThemeSetting(theme);
+  }
+
+  applyThemeSetting(theme: "light" | "dark") {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
   }
 
   async addRecipeToFavourites(recipeID: number, recipeTitle: string, recipeImage: string) {
